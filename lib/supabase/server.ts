@@ -6,8 +6,11 @@ import { cookies } from "next/headers";
  * global variable. Always create a new client within each function when using
  * it.
  */
+
+
 export async function createClient() {
   const cookieStore = await cookies();
+  
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -32,3 +35,5 @@ export async function createClient() {
     },
   );
 }
+
+

@@ -4,12 +4,14 @@ import { createClient } from "@/lib/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { FetchDataSteps } from "@/components/tutorial/fetch-data-steps";
 import { Suspense } from "react";
+import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
 
 async function UserDetails() {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getClaims();
 
   if (error || !data?.claims) {
+    
     redirect("/auth/login");
   }
 
@@ -35,8 +37,8 @@ export default function ProtectedPage() {
         </pre>
       </div>
       <div>
-        <h2 className="font-bold text-2xl mb-4">Next steps</h2>
-        <FetchDataSteps />
+        <h2 className="font-bold text-2xl mb-4">Create Tasks</h2>
+        <ConnectSupabaseSteps />
       </div>
     </div>
   );

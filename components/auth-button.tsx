@@ -10,11 +10,40 @@ export async function AuthButton() {
   const { data } = await supabase.auth.getClaims();
 
   const user = data?.claims;
+  
+  console.log(
+    user?.user_metadata?.full_name
+  );
+
+
+
+
+  // console.log(user);
+  function getUserName(user: any){
+
+
+    // console.log(user.email);
+    const userEmail = user.email;
+
+    // split string by "@" and return first part
+    const userName = userEmail.split("@")[0];
+
+    const fullName = user.user_metadata?.full_name;
+
+    if (fullName) {
+      return fullName;
+    }
+
+    return userName;
+
+  }
 
   return user ? (
     <div className="flex items-center gap-4">
-      Hey, {user.email}!
+      Hey, {getUserName(user)}
+
       <LogoutButton />
+
     </div>
   ) : (
     <div className="flex gap-2">
@@ -27,3 +56,5 @@ export async function AuthButton() {
     </div>
   );
 }
+
+

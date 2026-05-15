@@ -1,0 +1,111 @@
+
+Supabase Project Setup
+
+1. Create a project
+2. Get the project url and api key from the Project Settings > API
+3. Go to Authentication > Providers
+4. Add the OAuth providers
+
+
+
+Supabase backend Setup
+
+1. CLI to create next App
+npx create-next-app@latest
+
+2. mkdir lib/supabase and add 3 files - 
+client.ts
+server.ts
+middleware.ts or proxy.ts
+
+3. Make sure to have a proxy.ts at the root as well
+4. proxy is the middleman -> ensuring Authentication of users
+5. What proxy.ts does -> It acts as a gatekeeper that intercepts requests before they reach your pages.
+
+Example: 
+if a user's session is about to expire, the proxy automatically reaches out to 
+Supabase to refresh their token and updates the cookies.
+
+    
+it also checks if a user is logged in or not, for ex. a user who is not logged in,
+wont be able to access /protected dir, it would just redirect to /login page
+
+
+
+** Why 2 different functionality in lib/supabase? **
+
+client.ts -> Creates the connection to Supabase, used within files that uses "use client"
+          -> won't work for server side code, for ex, making a request to fetch data on the server, 
+          -> used to update and fetch UI state (eg. login/logout buttons, user profile data in header)
+          -> Why we need it? automatically looks at the browser's document.cookie to find the user's session. 
+             When a user clicks "Login" or "Logout", this client talks to Supabase and updates the browser's cookies 
+             so the user remains authenticated across page reloads.
+        
+        -> Example: forgot-password-form.tsx
+                    at the top, "use client" directive is used. Therefore, we use createClient() from lib/supabase/client.ts
+                    the rest of it is handled by 
+
+
+
+
+server.ts -> Server-side operations such as getting the user profile, or making a database query
+
+
+
+
+Azure Auth Setup
+1. Go to Azure portal 
+2. Go to Entra ID
+3. Click on App registrations
+4. Click on New registration
+5. Fill in the details
+6. Click on Register
+7. Copy the Client ID
+8. Go to Certificates & secrets
+9. Click on New client secret
+10. Copy the value (not the SECRET ID) CAREFUL on that bc the outlook link wont redirect if wrong value is copied
+11. Go to Supabase
+12. Go to Authentication > Providers
+13. Click on Add Provider > Azure
+14. Paste the Client ID and Client Secret Value copied from bullet 10
+15. Save
+16. Copy the Supabase URL
+17. Open .env.local file
+18. Add the NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, achieved by clicking the connect tab on the header
+
+
+Google Auth Setup
+1. go to console.cloud.google.com
+2. go to APi & services > credentials
+3. click on create credentials > OAuth client ID
+4. click on create client ID
+5. 
+
+For Google Cloud:
+Client ID: [CLIENT_ID]
+Client Secret: [CLIENT_SECRET]
+
+when enabling the google oauth, fill those in that are collected from the google cloud console.
+
+*** IMPORTANT ***
+
+Add the redirect URL https://fdhmaaqieesmzpvgswje.supabase.co/auth/callback
+redirect URI found from https://supabase.com/dashboard/project/fdhmaaqieesmzpvgswje/auth/providers?provider=Google
+
+
+
+
+
+for the azure and google oauth, if the credentials are set up successfully,
+it should redirect to the google and outlook login page after clicking on the respective buttons.
+
+
+
+
+
+
+
+
+
+
+
