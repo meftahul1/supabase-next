@@ -2,9 +2,9 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 import { InfoIcon } from "lucide-react";
-import { FetchDataSteps } from "@/components/tutorial/fetch-data-steps";
+// import { FetchDataSteps } from "@/components/tutorial/fetch-data-steps";
 import { Suspense } from "react";
-import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
+import { TaskManager } from "@/components/tutorial/task-manager";
 
 async function UserDetails() {
   const supabase = await createClient();
@@ -38,7 +38,7 @@ export default function ProtectedPage() {
       </div>
       <div>
         <h2 className="font-bold text-2xl mb-4">Create Tasks</h2>
-        <ConnectSupabaseSteps />
+        <TaskManager />
       </div>
     </div>
   );

@@ -22,6 +22,7 @@ export default function ProtectedLayout({
               <EnvVarWarning />
             ) : (
               <Suspense>
+                
                 <AuthButton />
                 
               </Suspense>

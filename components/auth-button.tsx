@@ -10,10 +10,7 @@ export async function AuthButton() {
   const { data } = await supabase.auth.getClaims();
 
   const user = data?.claims;
-  
-  console.log(
-    user?.user_metadata?.full_name
-  );
+ 
 
 
 
