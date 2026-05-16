@@ -171,7 +171,7 @@ export function TaskManager() {
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto", padding: "1rem" }}>
       {/* Form to add a new task */}
-      <form onSubmit={handleSubmit} style={{ marginBottom: "1rem" }}>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2 mb-5" id="task-form">
         <input
           type="text"
           placeholder="Task Title"
@@ -179,20 +179,24 @@ export function TaskManager() {
           onChange={(e) =>
             setNewTask((prev) => ({ ...prev, title: e.target.value }))
           }
-          style={{ width: "100%", marginBottom: "0.5rem", padding: "0.5rem" }}
+          className="w-full mb-2 p-2 border border-input rounded-md bg-background text-foreground"
           required
         />
+
         <textarea
+          id="task-description"
           placeholder="Task Description"
           value={newTask.description}
           onChange={(e) =>
             setNewTask((prev) => ({ ...prev, description: e.target.value }))
           }
-          style={{ width: "100%", marginBottom: "0.5rem", padding: "0.5rem" }}
+
+          className="w-full mb-2 p-2 border border-input rounded-md bg-background text-foreground"
+
           required
         />
 
-        <input type="file" accept="image/*" onChange={handleFileChange} style={{ marginBottom: "0.5rem" }} />
+        <input type="file" accept="image/*" onChange={handleFileChange} className="w-full mb-2 p-2 border border-input rounded-md bg-background text-foreground" />
 
         <Button type="submit" className="mt-2 block w-full sm:w-auto">
           Add Task

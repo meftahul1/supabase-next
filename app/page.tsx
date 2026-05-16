@@ -1,4 +1,3 @@
-import { DeployButton } from "@/components/deploy-button";
 import { EnvVarWarning } from "@/components/env-var-warning";
 import { AuthButton } from "@/components/auth-button";
 import { Hero } from "@/components/hero";
@@ -28,9 +27,14 @@ export default function Home() {
             )}
           </div>
         </nav>
+
         <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
           
-          <Hero />
+          <Suspense fallback={<div>Loading...</div>}>
+
+            <Hero />
+          
+          </Suspense>
           
         </div>
 
